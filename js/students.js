@@ -39,9 +39,11 @@ function renderStud(doc) {
     badge = document.createElement('span');
     if (doc.data().isspoof) {
         badge.setAttribute('class', 'badge rounded-pill bg-danger mx-3');
+        badge.setAttribute('id', doc.id);
         badge.innerHTML = "Suspected";
         name.appendChild(badge);
     } else {
+        badge.setAttribute('id', doc.id);
         badge.setAttribute('class', 'badge rounded-pill bg-success mx-3');
         badge.innerHTML = "No issues";
         name.appendChild(badge);
@@ -62,19 +64,15 @@ db.collection("student").onSnapshot(snapshot => {
         if (change.type == 'added') {
             renderStud(change.doc)
         } else if (change.type == 'modified') {
-            let li = studentsList.querySelector('[data-id=' + change.doc.id + ']');
-            li.children[0].innerHTML = change.doc.data().username
-            badge = document.createElement('span');
+            badge = document.getElementById(change.doc.id)
             if (change.doc.data().isspoof) {
                 badge.setAttribute('class', 'badge rounded-pill bg-danger mx-3');
                 badge.innerHTML = "Suspected";
-                li.children[0].appendChild(badge);
             } else {
                 badge.setAttribute('class', 'badge rounded-pill bg-success mx-3');
                 badge.innerHTML = "No issues";
-                li.children[0].appendChild(badge);
     }
-    //li.appendChild(div);
+   // li.appendChild(div);
         } else if (change.type == 'removed') {
             let li = studentsList.querySelector('[data-id=' + change.doc.id + ']');
             li.remove();
