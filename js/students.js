@@ -74,7 +74,7 @@ db.collection("student").onSnapshot(snapshot => {
                 badge.innerHTML = "No issues";
                 li.children[0].appendChild(badge);
     }
-    li.appendChild(div);
+    //li.appendChild(div);
         } else if (change.type == 'removed') {
             let li = studentsList.querySelector('[data-id=' + change.doc.id + ']');
             li.remove();
